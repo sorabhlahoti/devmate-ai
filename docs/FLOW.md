@@ -1,20 +1,42 @@
 # Application Flow
 
-## Current Flow
+## Current CLI Flow
 
 ```text
 User runs command
       |
       v
-Go main function starts
+cmd/devmate/main.go
       |
       v
-Prints message in terminal
+cli.Execute()
+      |
+      v
+rootCmd.Execute()
+      |
+      v
+Cobra checks command
+      |
+      v
+Runs matching command
 ```
-
-## Command
-
-```bash
-go run ./cmd/devmate
+Example
 ```
+go run ./cmd/devmate version
+```
+Flow:
+
+main.go starts
+      |
+      v
+cli.Execute() runs
+      |
+      v
+Cobra finds version command
+      |
+      v
+versionCmd Run function executes
+      |
+      v
+Prints version
 

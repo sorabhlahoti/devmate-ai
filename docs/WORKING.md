@@ -4,15 +4,21 @@
 
 ```bash
 go run ./cmd/devmate
-```
-
-## Expected Output
-
-```
-DevMate AI CLI is running 🚀
-```
-## Build Binary 
-
-```
+Show Help
+go run ./cmd/devmate --help
+Show Version
+go run ./cmd/devmate version
+Build Binary
 go build -o bin/devmate ./cmd/devmate
+```
+
+## Run Built Binary
+
+### Windows:
+```bash
+./bin/devmate.exe version
+```
+#### Linux/Mac:
+```bash
+./bin/devmate version
 ```

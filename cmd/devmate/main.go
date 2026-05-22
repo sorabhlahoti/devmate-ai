@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+
+	"github.com/sorabhlahoti/devmate-ai/internal/cli"
+)
 
 func main() {
-    fmt.Println("DevMate AI CLI is running ??")
+	if err := cli.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }
