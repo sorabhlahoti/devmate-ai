@@ -87,7 +87,94 @@ Mock explanation is returned
 
 CLI prints explanation 
 ```
+## Save Note Flow
 
+```text
+User runs:
+devmate save --title "Docker fix" --body "Check permission"
+
+        |
+        v
+
+Cobra finds save command
+
+        |
+        v
+
+CLI reads title and body flags
+
+        |
+        v
+
+storage.NewSQLiteStore("") opens local SQLite DB
+
+        |
+        v
+
+Store.Init() creates notes table if missing
+
+        |
+        v
+
+Store.SaveNote() validates and inserts note
+
+        |
+        v
+
+CLI prints saved note ID
+```
+
+## List Notes Flow
+```text
+User runs:
+devmate list
+
+        |
+        v
+
+Cobra finds list command
+
+        |
+        v
+
+SQLite database opens
+
+        |
+        v
+
+Store.ListNotes() fetches latest notes
+
+        |
+        v
+
+CLI prints notes in terminal
+```
+
+## Search Notes Flow
+```text
+User runs:
+devmate search "docker"
+
+        |
+        v
+
+Cobra finds search command
+
+        |
+        v
+
+CLI joins search arguments
+
+        |
+        v
+
+Store.SearchNotes() searches title and body
+
+        |
+        v
+
+CLI prints matching notes
+```
 
 ## Why Mock AI First?
 
