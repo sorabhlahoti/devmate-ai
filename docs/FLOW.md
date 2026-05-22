@@ -1,5 +1,31 @@
 # Application Flow
 
+## Current Architecture
+
+```text
+Developer
+   |
+   | runs terminal command
+   v
+DevMate CLI
+   |
+   | saves/searches
+   v
+Local SQLite Database
+```
+
+```text
+API Client / curl / future CLI sync
+   |
+   | HTTP JSON request
+   v
+DevMate API Server
+   |
+   | calls storage layer
+   v
+SQLite Database
+```
+
 ## Ask Command Flow
 
 ```text
@@ -174,6 +200,90 @@ Store.SearchNotes() searches title and body
         v
 
 CLI prints matching notes
+```
+
+## API Create Note Flow
+
+```text
+Client sends:
+POST /api/v1/notes
+
+        |
+        v
+
+cmd/api/main.go starts server
+
+        |
+        v
+
+internal/api/server.go receives request
+
+        |
+        v
+
+handleNotes() checks method
+
+        |
+        v
+
+handleCreateNote() decodes JSON body
+
+        |
+        v
+
+storage.SaveNote() validates and inserts data
+
+        |
+        v
+
+API returns JSON response
+```
+
+## API List Notes Flow
+
+```text
+Client sends:
+GET /api/v1/notes
+
+        |
+        v
+
+handleNotes() checks method
+
+        |
+        v
+
+handleListNotes() reads limit
+
+        |
+        v
+
+storage.ListNotes() fetches notes
+
+        |
+        v
+
+API returns notes JSON
+
+## API Search Notes Flow
+```text
+Client sends:
+GET /api/v1/notes/search?q=docker
+
+        |
+        v
+
+handleSearchNotes() reads q parameter
+
+        |
+        v
+
+storage.SearchNotes() searches title/body
+
+        |
+        v
+
+API returns matching notes      
 ```
 
 ## Why Mock AI First?
