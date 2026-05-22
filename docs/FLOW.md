@@ -1,42 +1,70 @@
 # Application Flow
 
-## Current CLI Flow
+## Ask Command Flow
 
 ```text
-User runs command
-      |
-      v
+User runs:
+devmate ask "explain goroutine"
+
+        |
+        v
+
 cmd/devmate/main.go
-      |
-      v
+
+        |
+        v
+
 cli.Execute()
-      |
-      v
-rootCmd.Execute()
-      |
-      v
-Cobra checks command
-      |
-      v
-Runs matching command
-```
-Example
-```
-go run ./cmd/devmate version
-```
-Flow:
 
-main.go starts
-      |
-      v
-cli.Execute() runs
-      |
-      v
-Cobra finds version command
-      |
-      v
-versionCmd Run function executes
-      |
-      v
-Prints version
+        |
+        v
 
+Cobra finds ask command
+
+        |
+        v
+
+ask.go joins user arguments into one question
+
+        |
+        v
+
+AI provider is created
+
+        |
+        v
+
+MockProvider.Ask() is called
+
+        |
+        v
+
+Mock answer is returned
+
+        |
+        v
+
+CLI prints answer in terminal
+```
+## Why Mock AI First?
+
+We are using mock AI first because we want to learn clean Go architecture before connecting real AI APIs.
+
+Later we can replace:
+
+```
+provider := ai.NewMockProvider()
+```
+
+with:
+
+```
+provider := ai.NewCloudflareProvider(...)
+```
+
+or:
+
+```
+provider := ai.NewOpenAIProvider(...)
+```
+without changing the whole CLI.
