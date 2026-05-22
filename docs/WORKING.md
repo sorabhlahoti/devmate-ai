@@ -7,34 +7,40 @@ go run ./cmd/devmate
 ```
 
 ## Show Help
-```
+
+```bash
 go run ./cmd/devmate --help
 ```
+
 ## Show Version
-```
+
+```bash
 go run ./cmd/devmate version
 ```
-## Ask Question
-```
+
+## Ask a Question
+
+```bash
 go run ./cmd/devmate ask "explain goroutine in simple words"
 ```
 
-## Explain Error From File
+## Explain Error from File
 
-### Create sample error file:
+### Create a sample error file
 
-```
+```bash
 echo "open /data/events.log: permission denied" > error.log
 ```
+
 ### Run
 
-```
+```bash
 go run ./cmd/devmate explain-error --file error.log
 ```
 
-OR
+or
 
-```
+```bash
 go run ./cmd/devmate explain-error -f error.log
 ```
 
@@ -58,31 +64,60 @@ go run ./cmd/devmate list
 go run ./cmd/devmate search "docker"
 ```
 
+## Run API
+
+```bash
+go run ./cmd/api
+```
+
+### API Health Check
+
+```bash
+curl http://localhost:8080/health
+```
+
+### Create Note Through API
+
+**PowerShell:**
+```powershell
+curl.exe -X POST http://localhost:8080/api/v1/notes `
+  -H "Content-Type: application/json" `
+  -d "{\"title\":\"Docker permission fix\",\"body\":\"Check mounted volume permission\"}"
+```
+
+**Linux/Mac:**
+```bash
+curl -X POST http://localhost:8080/api/v1/notes \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Docker permission fix","body":"Check mounted volume permission"}'
+```
+
+### List Notes Through API
+
+```bash
+curl http://localhost:8080/api/v1/notes
+```
+
+### Search Notes Through API
+
+```bash
+curl "http://localhost:8080/api/v1/notes/search?q=docker"
+```
+
 ## Run Tests
 
-```
+```bash
 go test ./...
 ```
 
-## Build Binary
-```
+## Build CLI Binary
+
+```bash
 go build -o bin/devmate ./cmd/devmate
 ```
 
-## Run Built Binary
-
-### Windows:
+### Build API Binary
 
 ```bash
-./bin/devmate.exe ask "explain goroutine"
-./bin/devmate.exe save --title "Docker fix" --body "Check volume permission"
-./bin/devmate.exe list
-```
-
-### Linux/Mac:
-
-```bash
-./bin/devmate ask "explain goroutine"
-./bin/devmate save --title "Docker fix" --body "Check volume permission"
-./bin/devmate list
+go build -o bin/devmate-api ./cmd/api
 ```
