@@ -4,21 +4,39 @@
 
 ```bash
 go run ./cmd/devmate
-Show Help
+```
+
+## Show Help
+```
 go run ./cmd/devmate --help
-Show Version
+```
+## Show Version
+```
 go run ./cmd/devmate version
-Build Binary
+```
+## Ask Question
+```
+go run ./cmd/devmate ask "explain goroutine in simple words"
+```
+## Run Tests
+```
+go test ./...
+```
+## Build Binary
+```
 go build -o bin/devmate ./cmd/devmate
 ```
 
 ## Run Built Binary
 
 ### Windows:
+
 ```bash
-./bin/devmate.exe version
+./bin/devmate.exe ask "explain goroutine"
 ```
-#### Linux/Mac:
+
+### Linux/Mac:
+
 ```bash
-./bin/devmate version
-```
+./bin/devmate ask "explain goroutine"
+```   
