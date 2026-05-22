@@ -18,6 +18,26 @@ go run ./cmd/devmate version
 ```
 go run ./cmd/devmate ask "explain goroutine in simple words"
 ```
+
+## Explain Error From File
+
+### Create sample error file:
+
+```
+echo "open /data/events.log: permission denied" > error.log
+```
+### Run
+
+```
+go run ./cmd/devmate explain-error --file error.log
+```
+
+OR
+
+```
+go run ./cmd/devmate explain-error -f error.log
+```
+
 ## Run Tests
 ```
 go test ./...
