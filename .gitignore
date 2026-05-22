@@ -1,0 +1,15 @@
+# Go build output
+bin/
+*.exe
+*.out
+
+# Environment files
+.env
+
+# Editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
