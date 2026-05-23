@@ -119,6 +119,39 @@ curl http://localhost:8080/api/v1/notes
 curl "http://localhost:8080/api/v1/notes/search?q=docker"
 ```
 
+## Sync Local Notes With API
+
+### Start API Server
+
+**Terminal 1:**
+
+```powershell
+$env:DEVMATE_DB_PATH="$PWD\devmate-api.db"
+go run ./cmd/api
+```
+
+### Configure and Sync Notes
+
+**Terminal 2:**
+
+```bash
+go run ./cmd/devmate config set api_url http://localhost:8080
+go run ./cmd/devmate save --title "Sync test note" --body "This note should go to backend"
+go run ./cmd/devmate sync
+```
+
+#### Run Sync Again
+
+```bash
+go run ./cmd/devmate sync
+```
+
+**Expected Output:**
+
+```
+No unsynced notes found ✅
+```
+
 ## Run Tests
 
 ```bash

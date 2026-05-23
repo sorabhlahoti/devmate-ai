@@ -340,6 +340,54 @@ storage.SearchNotes() searches title/body
 API returns matching notes      
 ```
 
+## Sync Flow
+
+```text 
+User runs:
+devmate sync
+
+        |
+        v
+
+CLI loads config.json
+
+        |
+        v
+
+CLI reads api_url
+
+        |
+        v
+
+CLI opens local SQLite database
+
+        |
+        v
+
+ListUnsyncedNotes() finds notes where remote_id is NULL
+
+        |
+        v
+
+For each unsynced note:
+POST /api/v1/notes
+
+        |
+        v
+
+Backend API saves note and returns remote ID
+
+        |
+        v
+
+CLI marks local note as synced
+
+        |
+        v
+
+Local note now has remote_id and synced_at
+```
+
 ## Why Mock AI First?
 
 We are using mock AI first because we want to learn clean Go architecture before connecting real AI APIs.

@@ -13,3 +13,6 @@ bin/
 # OS files
 .DS_Store
 Thumbs.db
+
+# DB file
+devmate-api.db
