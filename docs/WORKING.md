@@ -85,6 +85,7 @@ go run ./cmd/devmate config get api_url
 go run ./cmd/api
 ```
 
+
 ### API Health Check
 
 ```bash
@@ -169,3 +170,83 @@ go build -o bin/devmate ./cmd/devmate
 ```bash
 go build -o bin/devmate-api ./cmd/api
 ```
+# Docker API Commands
+
+## Build Docker Image
+
+```bash
+docker build -t devmate-api:local .
+```
+
+## Run Docker Container
+
+```bash
+docker run --rm -p 8080:8080 devmate-api:local
+```
+
+## Run With Docker Compose
+
+```bash
+docker compose up --build
+```
+
+## Health Check
+
+```bash
+curl http://localhost:8080/health
+```
+
+**PowerShell:**
+```powershell
+curl.exe http://localhost:8080/health
+```
+
+## Create Note Through Dockerized API
+
+**PowerShell:**
+```powershell
+curl.exe -X POST http://localhost:8080/api/v1/notes `
+  -H "Content-Type: application/json" `
+  -d "{\"title\":\"Dockerized API\",\"body\":\"DevMate API is running inside Docker\"}"
+```
+
+**Linux/Mac:**
+```bash
+curl -X POST http://localhost:8080/api/v1/notes \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Dockerized API","body":"DevMate API is running inside Docker"}'
+```
+
+## List Notes
+
+```bash
+curl http://localhost:8080/api/v1/notes
+```
+
+## Sync Local CLI Notes To Dockerized API
+
+**Terminal 1:**
+```bash
+docker compose up --build
+```
+
+**Terminal 2:**
+```bash
+go run ./cmd/devmate config set api_url http://localhost:8080
+go run ./cmd/devmate save --title "Docker sync test" --body "Local note synced to Docker API"
+go run ./cmd/devmate sync
+```
+
+## Stop Docker Compose
+
+```bash
+docker compose down
+```
+
+## Stop And Delete Docker Volume
+
+```bash
+docker compose down -v
+```
+
+> **⚠️ Note:** Use `-v` only if you want to delete saved API notes. This will permanently remove all note data.

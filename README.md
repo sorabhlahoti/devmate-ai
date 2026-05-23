@@ -6,7 +6,7 @@ It helps developers ask technical questions from the terminal, explain errors, s
 
 ## Current Status
 
-**Stage 5:** CLI + local SQLite notes + backend REST API.
+- CLI + local SQLite notes + backend REST API + Docker.
 
 ## Features
 
@@ -17,23 +17,26 @@ It helps developers ask technical questions from the terminal, explain errors, s
 - Save developer notes locally
 - List saved notes
 - Search saved notes
+- CLI config management
+- Sync local notes with backend API
 - Backend health API
 - Backend notes API
 - Backend search API
+- Dockerized API
+- Docker Compose setup
 
 ## Architecture
 
 ```mermaid
 flowchart TD
-  User[Developer] --> CLI[Go CLI: devmate]
-  CLI --> LocalDB[(Local SQLite)]
-  CLI --> AI[Mock AI Provider]
-
-  APIClient[curl / future CLI sync] --> API[Go REST API]
-  API --> APIStorage[(SQLite Storage)]
+    User[Developer] --> CLI[Go CLI: devmate]
+    CLI --> LocalDB[(Local SQLite)]
+    CLI --> MockAI[Mock AI Provider]
+    CLI --> API[Dockerized Go REST API]
+    API --> APIDB[(SQLite Docker Volume)]
 ```
 
-## Usage
+## Quick Start
 
 ### Run CLI
 
@@ -41,19 +44,7 @@ flowchart TD
 go run ./cmd/devmate
 ```
 
-### Ask Question
-
-```sh
-go run ./cmd/devmate ask "explain goroutine in simple words"
-```
-
-### Explain Error
-
-```sh
-go run ./cmd/devmate explain-error --file examples/error.log
-```
-
-### Save Note
+### Save Local Note
 
 ```sh
 go run ./cmd/devmate save --title "Docker permission fix" --body "Check mounted volume permission"
@@ -65,50 +56,51 @@ go run ./cmd/devmate save --title "Docker permission fix" --body "Check mounted 
 go run ./cmd/devmate list
 ```
 
-### Search Notes
+### Run API With Docker
 
 ```sh
-go run ./cmd/devmate search "docker"
-```
-
-### Run API
-
-```sh
-go run ./cmd/api
+docker compose up --build
 ```
 
 ### Test API
-
-#### Health
 
 ```sh
 curl http://localhost:8080/health
 ```
 
-#### Create note
+### Sync Local Notes To API
 
 ```sh
-curl -X POST http://localhost:8080/api/v1/notes \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Docker permission fix","body":"Check mounted volume permission"}'
+go run ./cmd/devmate config set api_url http://localhost:8080
+go run ./cmd/devmate sync
 ```
 
-#### List notes
+## API Endpoints
 
-```sh
-curl http://localhost:8080/api/v1/notes
-```
+- `GET  /health`
+- `POST /api/v1/notes`
+- `GET  /api/v1/notes`
+- `GET  /api/v1/notes/search?q=docker`
 
-#### Search notes
-
-```sh
-curl "http://localhost:8080/api/v1/notes/search?q=docker"
-```
-
-### Run Tests
+## Run Tests
 
 ```sh
 go test ./...
+```
+
+## Build Binaries
+
+```sh
+go build -o bin/devmate ./cmd/devmate
+go build -o bin/devmate-api ./cmd/api
+```
+
+## Docker Commands
+
+```sh
+docker build -t devmate-api:local .
+docker compose up --build
+docker compose down
 ```
 
 ## Tech Stack
@@ -116,18 +108,16 @@ go test ./...
 - Go
 - Cobra CLI
 - SQLite
-- REST API
 - net/http
-- Docker (later)
-- Swagger (later)
-- Kubernetes (later)
+- Docker
+- Docker Compose
 
 ## Roadmap
 
-- CLI sync with backend
 - Real AI provider
-- Swagger docs
-- Dockerfile
+- Swagger API docs
 - Cloud deployment
+- GitHub Actions
 - Kubernetes manifests
 - Terraform starter
+

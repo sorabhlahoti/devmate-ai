@@ -1,0 +1,10 @@
+.git
+.github
+bin
+*.db
+*.log
+.env
+.vscode
+.idea
+DS_Store
+Thumbs.db
