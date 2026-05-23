@@ -64,6 +64,21 @@ go run ./cmd/devmate list
 go run ./cmd/devmate search "docker"
 ```
 
+## Config Path
+```bash 
+go run ./cmd/devmate config path
+```
+
+## Set API URL
+```bash
+go run ./cmd/devmate config set api_url http://localhost:8080
+```
+
+## Get API URL
+```bash 
+go run ./cmd/devmate config get api_url
+```
+
 ## Run API
 
 ```bash
