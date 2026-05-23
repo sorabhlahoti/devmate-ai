@@ -75,14 +75,45 @@ http://localhost:8080/swagger/doc.json
 ```bash
 swag init -g cmd/api/main.go -o internal/swaggerdocs --outputTypes go,json --parseInternal  
 ```
+## Devops
 
+- GitHub Actions CI
+- Automated tests on push and pull request
+- Automated CLI build
+- Automated API build
+- Automated Docker image build
 
-## Docker Commands
+### Docker Commands
 
 ```bash
 docker build -t devmate-api:local .
 docker compose up --build
 docker compose down
+```
+## CI
+
+GitHub Actions workflow:
+
+```text
+.github/workflows/ci.yml
+```
+
+CI runs on:
+
+```text
+push to main
+push to feature/**
+pull request to main
+```
+
+CI checks:
+
+```text
+go formatting
+go tests
+CLI build
+API build
+Docker image build
 ```
 
 ## Planned Features

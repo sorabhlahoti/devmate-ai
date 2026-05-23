@@ -310,3 +310,17 @@ docker compose down -v
 ```
   
 > **Note:** Use `-v` only if you want to delete saved API notes. This will permanently remove all note data.
+
+## CI Local Checks
+
+Before pushing a branch, run:
+
+```bash
+gofmt -w .
+go test ./...
+go build -o bin/devmate ./cmd/devmate
+go build -o bin/devmate-api ./cmd/api
+docker build -t devmate-api:ci .
+```
+
+These commands match what GitHub Actions checks.

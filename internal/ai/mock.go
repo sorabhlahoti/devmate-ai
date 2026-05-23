@@ -1,26 +1,26 @@
 package ai
 
 import (
-    "context"
-    "fmt"
-    "strings"
+	"context"
+	"fmt"
+	"strings"
 )
 
 type MockProvider struct{}
 
 func NewMockProvider() Provider {
-    return &MockProvider{}
+	return &MockProvider{}
 }
 
 func (m *MockProvider) Ask(ctx context.Context, prompt string) (string, error) {
-    cleanPrompt := strings.TrimSpace(prompt)
+	cleanPrompt := strings.TrimSpace(prompt)
 
-    if cleanPrompt == "" {
-        return "", fmt.Errorf("prompt cannot be empty")
-    }
+	if cleanPrompt == "" {
+		return "", fmt.Errorf("prompt cannot be empty")
+	}
 
-    if strings.Contains(cleanPrompt, "Explain the following terminal error") {
-        return `[Mock AI Error Explanation]
+	if strings.Contains(cleanPrompt, "Explain the following terminal error") {
+		return `[Mock AI Error Explanation]
 
 1. What the error means
 The program tried to do something but the operating system rejected it.
@@ -37,9 +37,9 @@ This usually happens because of permission, wrong file path, missing file, or re
 
 4. How to prevent it next time
 Use clear logs, validate file paths, handle errors properly, and document required permissions.`, nil
-    }
+	}
 
-    answer := fmt.Sprintf("[Mock AI] You asked: %s\nThis is a mock response. Real AI integration will be added later.", cleanPrompt)
+	answer := fmt.Sprintf("[Mock AI] You asked: %s\nThis is a mock response. Real AI integration will be added later.", cleanPrompt)
 
-    return answer, nil
+	return answer, nil
 }
