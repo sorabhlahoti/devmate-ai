@@ -1,6 +1,6 @@
 APP_NAME=devmate-ai
 
-.PHONY: test run-cli run-api build-cli build-api docker-build docker-up docker-down
+.PHONY: test run-cli run-api build-cli build-api swagger docker-build docker-up docker-down
 
 test:
     go test ./...
@@ -16,6 +16,9 @@ build-cli:
 
 build-api:
     go build -o bin/devmate-api ./cmd/api
+
+swagger:
+    swag init -g cmd/api/main.go -o internal/swaggerdocs --outputTypes go,json --parseInternal
 
 docker-build:
     docker build -t devmate-api:local .

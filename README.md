@@ -121,3 +121,22 @@ docker compose down
 - Kubernetes manifests
 - Terraform starter
 
+
+## Swagger UI
+
+Generate Swagger docs:
+
+    swag init -g cmd/api/main.go -o internal/swaggerdocs --outputTypes go,json --parseInternal
+
+
+Run API:
+
+    go run ./cmd/api
+
+Open Swagger UI:
+
+    http://localhost:8080/swagger/index.html
+
+Swagger JSON:
+
+    http://localhost:8080/swagger/doc.json
