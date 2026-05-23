@@ -21,6 +21,7 @@
 - Create note endpoint
 - List notes endpoint
 - Search notes endpoint
+- Swagger UI page
 
 ### DevOps
 
@@ -29,6 +30,7 @@
 - SQLite Docker volume
 - Container health check
 - Makefile commands
+
 
 ## CLI Commands
 
@@ -57,6 +59,24 @@ GET  /api/v1/notes
 GET  /api/v1/notes/search?q=docker
 ```
 
+## Swagger
+
+**Swagger UI:**
+```http
+http://localhost:8080/swagger/index.html
+```
+
+**Swagger JSON:**
+```http
+http://localhost:8080/swagger/doc.json
+```
+
+**Generate Swagger docs:**
+```bash
+swag init -g cmd/api/main.go -o internal/swaggerdocs --outputTypes go,json --parseInternal  
+```
+
+
 ## Docker Commands
 
 ```bash
@@ -70,7 +90,6 @@ docker compose down
 - Real AI provider integration
 - Generate public runbooks
 - Git commit message helper
-- Swagger API docs
 - Kubernetes manifests
 - Terraform starter
 - CI/CD pipeline templates

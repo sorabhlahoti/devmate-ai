@@ -413,6 +413,17 @@ CLI marks local note as synced
 Local note now has remote_id and synced_at
 ```
 
+## Swagger Flow
+
+Flow:
+
+1. swag reads annotations from cmd/api/main.go.
+2. swag reads handler annotations from internal/api/server.go.
+3. swag generates files in internal/swaggerdocs.
+4. API imports generated Swagger docs.
+5. http-swagger serves Swagger UI at /swagger/index.html.
+6. Browser loads Swagger JSON from /swagger/doc.json.
+
 ## Docker Flow
 
 ```text
