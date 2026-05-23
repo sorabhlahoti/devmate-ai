@@ -13,6 +13,7 @@
 - List saved notes
 - Search saved notes
 - CLI config management
+- Sync local notes with backend API
 
 ### Backend API
 
@@ -36,6 +37,7 @@ devmate search "docker"
 devmate config set api_url http://localhost:8080
 devmate config get api_url
 devmate config path
+devmate sync
 ```
 
 ## API Endpoints
@@ -49,7 +51,6 @@ GET  /api/v1/notes/search?q=docker
 
 ## Planned Features
 
-- CLI sync with backend
 - Real AI provider integration
 - Generate public runbooks
 - Git commit message helper

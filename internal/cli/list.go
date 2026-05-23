@@ -37,6 +37,13 @@ var listCmd = &cobra.Command{
             fmt.Printf("[%d] %s\n", note.ID, note.Title)
             fmt.Println(note.Body)
             fmt.Println("Created:", note.CreatedAt.Format("2006-01-02 15:04:05 UTC"))
+
+            if note.RemoteID != nil && note.SyncedAt != nil {
+                fmt.Printf("Sync: synced as remote note %d at %s\n", *note.RemoteID, note.SyncedAt.Format("2006-01-02 15:04:05 UTC"))
+            } else {
+                fmt.Println("Sync: not synced")
+            }
+
             fmt.Println("---")
         }
 
