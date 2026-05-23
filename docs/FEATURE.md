@@ -22,6 +22,14 @@
 - List notes endpoint
 - Search notes endpoint
 
+### DevOps
+
+- Dockerfile for API
+- Docker Compose setup
+- SQLite Docker volume
+- Container health check
+- Makefile commands
+
 ## CLI Commands
 
 ```bash
@@ -49,12 +57,19 @@ GET  /api/v1/notes
 GET  /api/v1/notes/search?q=docker
 ```
 
+## Docker Commands
+
+```bash
+docker build -t devmate-api:local .
+docker compose up --build
+docker compose down
+```
+
 ## Planned Features
 
 - Real AI provider integration
 - Generate public runbooks
 - Git commit message helper
-- Docker support
 - Swagger API docs
 - Kubernetes manifests
 - Terraform starter

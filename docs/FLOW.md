@@ -126,6 +126,31 @@ Mock answer is returned
 
 CLI prints answer in terminal
 ```
+
+
+## Why Mock AI First?
+
+We are using mock AI first because we want to learn clean Go architecture before connecting real AI APIs.
+
+Later we can replace:
+
+```
+provider := ai.NewMockProvider()
+```
+
+with:
+
+```
+provider := ai.NewCloudflareProvider(...)
+```
+
+or:
+
+```
+provider := ai.NewOpenAIProvider(...)
+```
+without changing the whole CLI.
+
 ## Explain Error Flow   
 
 ```text      
@@ -388,25 +413,95 @@ CLI marks local note as synced
 Local note now has remote_id and synced_at
 ```
 
-## Why Mock AI First?
+## Docker Flow
 
-We are using mock AI first because we want to learn clean Go architecture before connecting real AI APIs.
+```text
+User runs:
+docker compose up --build
 
-Later we can replace:
+        |
+        v
 
+Docker reads Dockerfile
+
+        |
+        v
+
+Builder stage compiles Go API binary
+
+        |
+        v
+
+Runtime stage copies only compiled binary
+
+        |
+        v
+
+Container starts /app/devmate-api
+
+        |
+        v
+
+Go API listens on port 8080
+
+        |
+        v
+
+SQLite database is stored at /data/devmate.db
+
+        |
+        v
+
+Docker volume keeps /data persistent
 ```
-provider := ai.NewMockProvider()
+
+## Sync With Dockerized API Flow
+
+```text
+User runs:
+devmate sync
+
+        |
+        v
+
+CLI reads api_url from config
+
+        |
+        v
+
+api_url points to http://localhost:8080
+
+        |
+        v
+
+CLI sends POST /api/v1/notes
+
+        |
+        v
+
+Dockerized API receives request
+
+        |
+        v
+
+API stores note in SQLite volume
+
+        |
+        v
+
+CLI marks local note as synced
 ```
 
-with:
+## Why Docker Volume Exists
 
-```
-provider := ai.NewCloudflareProvider(...)
-```
+Container filesystem is temporary.
 
-or:
+If SQLite was stored only inside container:
+- container removed
+- notes gone
 
-```
-provider := ai.NewOpenAIProvider(...)
-```
-without changing the whole CLI.
+With Docker volume:
+- container removed
+- volume remains
+- notes survive
+
