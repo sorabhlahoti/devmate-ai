@@ -516,3 +516,35 @@ With Docker volume:
 - volume remains
 - notes survive
 
+## GitHub Actions CI Flow
+
+Developer pushes code:
+
+```text
+git push origin feature/github-actions-ci
+```
+
+Flow:
+
+```text
+1. GitHub detects push event.
+2. GitHub starts CI workflow.
+3. Runner checks out repository.
+4. Runner installs Go.
+5. Runner downloads dependencies.
+6. Runner checks gofmt.
+7. Runner runs tests.
+8. Runner builds CLI binary.
+9. Runner builds API binary.
+10. Runner builds Docker image.
+11. GitHub shows pass or fail status.
+```
+
+Why this matters:
+
+```text
+CI protects main branch from broken code.
+CI proves the project is buildable for other developers.
+CI gives recruiters confidence that the repo is maintained professionally.
+```
+

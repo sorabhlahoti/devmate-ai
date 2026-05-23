@@ -1,5 +1,7 @@
 # DevMate AI
 
+![CI](https://github.com/sorabhlahoti/devmate-ai/actions/workflows/ci.yml/badge.svg)
+
 DevMate AI is an AI-powered CLI assistant for developers.
 
 It helps developers ask technical questions from the terminal, explain errors, save useful fixes, search old solutions, and sync notes with a backend API.
