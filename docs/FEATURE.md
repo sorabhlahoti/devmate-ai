@@ -12,6 +12,7 @@
 - Save developer notes locally
 - List saved notes
 - Search saved notes
+- CLI config management
 
 ### Backend API
 
@@ -32,6 +33,9 @@ devmate explain-error --file examples/error.log
 devmate save --title "Docker permission fix" --body "Check mounted volume permission"
 devmate list
 devmate search "docker"
+devmate config set api_url http://localhost:8080
+devmate config get api_url
+devmate config path
 ```
 
 ## API Endpoints

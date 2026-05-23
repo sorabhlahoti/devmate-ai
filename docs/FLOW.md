@@ -26,6 +26,60 @@ DevMate API Server
 SQLite Database
 ```
 
+## Config flow
+
+```textUser runs:
+devmate config set api_url http://localhost:8080
+
+        |
+        v
+
+Cobra finds config set command
+
+        |
+        v
+
+internal/config loads existing config
+
+        |
+        v
+
+updates api_url value
+
+        |
+        v
+
+writes config.json into user config directory
+```     
+
+## Config Get Flow
+
+```text
+User runs:
+devmate config get api_url
+
+        |
+        v
+
+Cobra finds config get command
+
+        |
+        v
+
+internal/config loads config.json
+
+        |
+        v
+
+returns api_url
+
+        |
+        v
+
+CLI prints value
+```     
+
+
 ## Ask Command Flow
 
 ```text
